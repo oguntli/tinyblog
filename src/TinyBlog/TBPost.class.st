@@ -11,7 +11,24 @@ Class {
 	#category : #TinyBlog
 }
 
-{ #category : #initialization }
+{ #category : #'instance creation' }
+TBPost class >> title: aTitle text: aText [
+    ^ self new
+        title: aTitle;
+        text: aText;
+        yourself 
+  
+]
+
+{ #category : #'instance creation' }
+TBPost class >> title: aTitle text: aText category: aCategory [
+    ^ (self title: aTitle text: aText)
+              category: aCategory;
+              yourself
+
+]
+
+{ #category : #'instance creation' }
 TBPost class >> unclassifiedTag [
   ^ 'Unclassified'
 ]
@@ -44,7 +61,7 @@ TBPost >> date: aDate [
 { #category : #initialization }
 TBPost >> initialize [
   super initialize.
-  self category: TBPost unclassifiedTag.
+  self category: self class unclassifiedTag.
   self date: Date today.
   self notVisible 
 ]
