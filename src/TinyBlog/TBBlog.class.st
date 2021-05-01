@@ -4,9 +4,6 @@ Class {
 	#instVars : [
 		'posts'
 	],
-	#classInstVars : [
-		'uniqueInstance'
-	],
 	#category : #TinyBlog
 }
 
@@ -43,7 +40,9 @@ TBBlog class >> createDemoPosts [
 { #category : #initialization }
 TBBlog class >> current [ 
   "answer the instance of TBRepository"
-  ^ uniqueInstance ifNil: [ uniqueInstance := self new ]
+  ^ self selectAll 
+      ifNotEmpty: [ :x | x anyOne ]
+      ifEmpty: [ self new save ]
 ]
 
 { #category : #initialization }
@@ -52,9 +51,20 @@ TBBlog class >> initialize [
 ]
 
 { #category : #initialization }
-TBBlog class >> reset [
-  uniqueInstance := nil
+TBBlog class >> initializeVoyageOnMemoryDB [
+  VOMemoryRepository new enableSingleton 
 
+]
+
+{ #category : #initialization }
+TBBlog class >> isVoyageRoot [
+  "Indicate that instances of this class are top level documents in noSQL database"
+  ^ true
+]
+
+{ #category : #initialization }
+TBBlog class >> reset [
+  self initializeVoyageOnMemoryDB 
 ]
 
 { #category : #'as yet unclassified' }
@@ -91,7 +101,8 @@ TBBlog >> initialize [
 
 { #category : #initialization }
 TBBlog >> removeAllPosts [
-	posts := OrderedCollection new
+	posts := OrderedCollection new.
+	self save.
 ]
 
 { #category : #accessing }
@@ -101,6 +112,7 @@ TBBlog >> size [
 
 { #category : #'as yet unclassified' }
 TBBlog >> writeBlogPost: aPost [ 
-	"Add the blog post ot the list of posts."
-	posts add: aPost
+	"Write the blog post in database"
+	self allBlogPosts add: aPost.
+	self save
 ]
