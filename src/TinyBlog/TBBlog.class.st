@@ -2,6 +2,7 @@ Class {
 	#name : #TBBlog,
 	#superclass : #Object,
 	#instVars : [
+		'adminUser',
 		'posts'
 	],
 	#category : #TinyBlog
@@ -45,6 +46,16 @@ TBBlog class >> current [
       ifEmpty: [ self new save ]
 ]
 
+{ #category : #testing }
+TBBlog class >> defaultAdminLogin [
+  ^ 'admin'
+]
+
+{ #category : #testing }
+TBBlog class >> defaultAdminPassword [
+  ^ 'topsecret'
+]
+
 { #category : #initialization }
 TBBlog class >> initialize [ 
   self reset
@@ -65,6 +76,11 @@ TBBlog class >> isVoyageRoot [
 { #category : #initialization }
 TBBlog class >> reset [
   self initializeVoyageOnMemoryDB 
+]
+
+{ #category : #accessing }
+TBBlog >> administrator [
+  ^ adminUser
 ]
 
 { #category : #'as yet unclassified' }
@@ -94,9 +110,17 @@ TBBlog >> allVisibleBlogPostsFromCategory: aCategory [
 ]
 
 { #category : #initialization }
+TBBlog >> createAdministrator [
+  ^ TBAdministrator
+       login: self class defaultAdminLogin 
+       password: self class defaultAdminPassword 
+]
+
+{ #category : #initialization }
 TBBlog >> initialize [ 
   super initialize.
-  posts := OrderedCollection new 
+  posts := OrderedCollection new .
+  adminUser := self createAdministrator 
 ]
 
 { #category : #initialization }
