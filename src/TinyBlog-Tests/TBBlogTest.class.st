@@ -75,6 +75,14 @@ TBBlogTest >> testRemoveAllBlogPosts [
 ]
 
 { #category : #running }
+TBBlogTest >> testRemoveBlogPost [
+  self assert: blog size equals: 1.
+  blog removeBlogPost: blog allBlogPosts anyOne.
+  self assert: blog size equals: 0.
+
+]
+
+{ #category : #running }
 TBBlogTest >> testSize [
 
   self assert: blog size equals: 1

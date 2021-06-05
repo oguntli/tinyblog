@@ -129,6 +129,12 @@ TBBlog >> removeAllPosts [
 	self save.
 ]
 
+{ #category : #'as yet unclassified' }
+TBBlog >> removeBlogPost: aPost [
+  posts remove: aPost ifAbsent: [  ].
+  self save.
+]
+
 { #category : #accessing }
 TBBlog >> size [ 
   ^ posts size

@@ -58,6 +58,60 @@ TBPost >> date: aDate [
 	date := aDate
 ]
 
+{ #category : #testing }
+TBPost >> descriptionCategory [
+         <magritteDescription>
+         ^ MAStringDescription new
+            label: 'Category';
+            priority: 300;
+            accessor: #category;
+            yourself
+]
+
+{ #category : #testing }
+TBPost >> descriptionDate [
+         <magritteDescription>
+         ^ MADateDescription new
+            accessor: #date;
+			   label: 'Date';
+			   priority: 400;
+            beRequired;
+            yourself
+]
+
+{ #category : #testing }
+TBPost >> descriptionText [
+         <magritteDescription>
+         ^ MAMemoDescription new
+            accessor: #text;
+			   label: 'Text';
+			   priority: 200;
+            beRequired;
+            yourself
+]
+
+{ #category : #testing }
+TBPost >> descriptionTitle [
+         <magritteDescription>
+         ^ MAStringDescription new
+            accessor: #title;
+            label: 'Title';
+            priority: 100;
+            beRequired;
+            yourself
+]
+
+{ #category : #testing }
+TBPost >> descriptionVisible [
+         <magritteDescription>
+         ^ MABooleanDescription new
+            accessor: #visible;
+            label: 'Visible';
+				priority: 500;
+            beRequired;
+            yourself
+]
+
 { #category : #initialization }
 TBPost >> initialize [
   super initialize.
