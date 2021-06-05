@@ -65,7 +65,16 @@ TBPost >> descriptionCategory [
             label: 'Category';
             priority: 300;
             accessor: #category;
+				comment: 'Unclassified if empty';
+				componentClass: TBSMagritteTextInputComponent;
             yourself
+]
+
+{ #category : #testing }
+TBPost >> descriptionContainer [
+         <magritteContainer>
+         ^ super descriptionContainer componentRenderer: TBSMagritteFormRenderer;
+           yourself
 ]
 
 { #category : #testing }
@@ -86,6 +95,9 @@ TBPost >> descriptionText [
             accessor: #text;
 			   label: 'Text';
 			   priority: 200;
+				comment: 'Please enter a text';
+				requiredErrorMessage: 'A blog post must have a text.';
+				componentClass: TBSMagritteTextAreaComponent;
             beRequired;
             yourself
 ]
@@ -97,6 +109,9 @@ TBPost >> descriptionTitle [
             accessor: #title;
             label: 'Title';
             priority: 100;
+				comment: 'Please enter a Title';
+				requiredErrorMessage: 'A blog post must have a title.';
+				componentClass: TBSMagritteTextInputComponent;
             beRequired;
             yourself
 ]
@@ -108,6 +123,7 @@ TBPost >> descriptionVisible [
             accessor: #visible;
             label: 'Visible';
 				priority: 500;
+				componentClass: TBSMagritteCheckboxComponent;
             beRequired;
             yourself
 ]
